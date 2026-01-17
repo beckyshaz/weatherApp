@@ -1,0 +1,1 @@
+creating a weather app using visual crossing weather api in order to practice api intergration and how to consume data from an api and also practise using promises to write code that run asynchronously
