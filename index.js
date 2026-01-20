@@ -19,8 +19,8 @@ async function getWeatherData(location) {
     
 }
 
-getWeatherData("nairobi")
-.then((res) => console.log(res))
+//getWeatherData("nairobi")
+//.then((res) => console.log(res))
 
 
 
@@ -29,7 +29,10 @@ getWeatherData("nairobi")
 function getneededWeatherInfo() {
 
     //const weatherData = await (getWeatherData());
-    return getWeatherData("nairobi,kenya")
+
+    return getLocationFromForm().then((location) => {
+        return getWeatherData(location)
+    })
     .then((res) => {
         console.log(res.days);
         const sevenDaysWeatherData = res.days;
@@ -57,3 +60,43 @@ function getneededWeatherInfo() {
 
 getneededWeatherInfo();
 
+
+function getLocationFromForm() {
+
+    const form = document.querySelector("form");
+        
+    const locationInput = document.querySelector("#location");
+        
+
+    return new Promise((resolve, reject) => {
+
+        function submitHandler(event) {
+            event.preventDefault();
+
+            const location =  locationInput.value;
+            console.log(location);
+
+            form.removeEventListener("submit", submitHandler);
+
+            if (location) {
+
+                locationInput.value = "";
+
+                resolve(location);
+            
+               
+
+            }else {
+                reject("no location received");
+            }
+        }
+
+        form.addEventListener("submit", submitHandler);
+        
+    })
+    
+
+}
+
+
+//getLocationFromForm();
