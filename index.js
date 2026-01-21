@@ -37,13 +37,15 @@ function getneededWeatherInfo() {
         console.log(res.days);
         const sevenDaysWeatherData = res.days;
         const neededWeatherData = sevenDaysWeatherData.map(day => {
-            console.log(day.conditions, day.datetime, day.feelslike, day.humidity, day.windspeed);
+            console.log(day.conditions, day.datetime, day.feelslike, day.humidity, day.windspeed, day.temp);
             return {
+            
                 conditions: day.conditions,
-                day: day.datetime,
+                day: dateFormatter(day.datetime),
                 feelslike: day.feelslike,
                 humidity: day.humidity,
-                windspeed: day.windspeed
+                windspeed: day.windspeed,
+                temp: day.temp
 
             }
         });
@@ -57,10 +59,67 @@ function getneededWeatherInfo() {
     })
 
 }
+ 
+//getneededWeatherInfo();
+function dateFormatter(date) {
+    let options = {
+        weekday: "short"
+    }
+    const dateObj = new Date(date);
 
-getneededWeatherInfo();
+    const formatedDate = new Intl.DateTimeFormat("en-Us", options).format(dateObj);
+    return formatedDate;
+}
+
+async function displayInfoToUser() {
+    try {
+        const weatherData = await getneededWeatherInfo();
+        console.log(weatherData);
+
+        const weatherContainer = document.querySelector(".weather-elements-container");
+
+        if (weatherData) {
+
+            weatherData.forEach(element => {
+                const outerDiv = document.createElement("div");
+                outerDiv.className = 'elementsDiv';
+                const dayElement = document.createElement("p");
+                dayElement.textContent = element.day;
+
+                const tempElement = document.createElement("p");
+                tempElement.textContent = `${element.temp}°`;
 
 
+                
+                const feelslikeElement = document.createElement("p");
+                feelslikeElement.textContent = `Feels Like ${element.feelslike}°`;
+                
+                const conditionsElement = document.createElement("p");
+                conditionsElement.textContent = element.conditions;
+                
+                const humidityElement = document.createElement("p");
+                humidityElement.textContent = `Humidity => ${element.humidity}`;
+                
+                const windspeedElement = document.createElement("p");
+                windspeedElement.textContent = `Wind => ${element.windspeed}`;
+
+                outerDiv.append(dayElement, feelslikeElement, conditionsElement, humidityElement, windspeedElement)
+                
+                weatherContainer.appendChild(outerDiv);  
+            });
+           
+
+
+            
+            
+
+        }
+    } catch (error) {
+        
+    }
+}
+
+displayInfoToUser()
 function getLocationFromForm() {
 
     const form = document.querySelector("form");
