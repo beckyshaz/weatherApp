@@ -37,7 +37,7 @@ function getneededWeatherInfo() {
         console.log(res.days);
         const sevenDaysWeatherData = res.days;
         const neededWeatherData = sevenDaysWeatherData.map(day => {
-            console.log(day.conditions, day.datetime, day.feelslike, day.humidity, day.windspeed, day.temp);
+            console.log(day.conditions, day.datetime, day.feelslike, day.humidity, day.windspeed, day.temp, );
             return {
             
                 conditions: day.conditions,
@@ -45,7 +45,10 @@ function getneededWeatherInfo() {
                 feelslike: day.feelslike,
                 humidity: day.humidity,
                 windspeed: day.windspeed,
-                temp: day.temp
+                temp: day.temp,
+                precip: (day.precip * 100),
+                tempMax: day.tempmax,
+                tempMin: day.tempmin,
 
             }
         });
@@ -63,12 +66,24 @@ function getneededWeatherInfo() {
 //getneededWeatherInfo();
 function dateFormatter(date) {
     let options = {
-        weekday: "short"
+        weekday: "long",
+        day: "numeric",
     }
     const dateObj = new Date(date);
 
+    console.log(dateObj);
+
+    const todayDate = new Date();
+    console.log(todayDate);
+
+   if(dateObj.toDateString() === todayDate.toDateString()) {
+    return "Today";
+   }else {
     const formatedDate = new Intl.DateTimeFormat("en-Us", options).format(dateObj);
     return formatedDate;
+   }
+
+
 }
 
 async function displayInfoToUser() {
@@ -78,34 +93,68 @@ async function displayInfoToUser() {
 
         const weatherContainer = document.querySelector(".weather-elements-container");
 
+        const currentDayWeather = document.querySelector(".currentDay-weather");
+
+        const humTempWindContainer = document.querySelector(".humTempAndWind");
+
         if (weatherData) {
 
             weatherData.forEach(element => {
-                const outerDiv = document.createElement("div");
-                outerDiv.className = 'elementsDiv';
+
+                const outerContainer = document.createElement("div");
+                outerContainer.className = 'weather-elementsDiv';
                 const dayElement = document.createElement("p");
                 dayElement.textContent = element.day;
+                
 
                 const tempElement = document.createElement("p");
-                tempElement.textContent = `${element.temp}°`;
+                tempElement.textContent = `${element.tempMin }°C / ${element.tempMax}°C`;
+
+                outerContainer.append(dayElement, tempElement);
+                weatherContainer.appendChild(outerContainer);
 
 
-                
-                const feelslikeElement = document.createElement("p");
-                feelslikeElement.textContent = `Feels Like ${element.feelslike}°`;
-                
-                const conditionsElement = document.createElement("p");
-                conditionsElement.textContent = element.conditions;
-                
-                const humidityElement = document.createElement("p");
-                humidityElement.textContent = `Humidity => ${element.humidity}`;
-                
-                const windspeedElement = document.createElement("p");
-                windspeedElement.textContent = `Wind => ${element.windspeed}`;
+                if (element.day === "Today") {
+                    const outerDiv = document.createElement("div");
+                    outerDiv.className = 'current-day-weather-div';
+                    const dayElement = document.createElement("p");
+                    dayElement.textContent = element.day;
+                    dayElement.className = "current-day";
 
-                outerDiv.append(dayElement, feelslikeElement, conditionsElement, humidityElement, windspeedElement)
+                    const tempElement = document.createElement("p");
+                    tempElement.textContent = `${element.temp}°C`;
+                    tempElement.className = "temp";
+
+
+                    
+                    const feelslikeElement = document.createElement("p");
+                    feelslikeElement.textContent = `Feels Like ${element.feelslike}°`;
+                    feelslikeElement.className = "feelslike";
+                    
+                    const conditionsElement = document.createElement("p");
+                    conditionsElement.textContent = element.conditions;
+                    conditionsElement.className = "conditions";
+                    
+                    const humidityElement = document.createElement("p");
+                    humidityElement.textContent = `Humidity => ${element.humidity}`;
+                    humidityElement.className = "humidity";
+
+                    const precipElement = document.createElement("p");
+                    precipElement.textContent = `Precipitation => ${element.precip}%`;
+                    precipElement.className = "precipitation";
+                    
+                    
+                    const windspeedElement = document.createElement("p");
+                    windspeedElement.textContent = `Wind => ${element.windspeed}`;
+                    windspeedElement.className = "wind";
+
+                    humTempWindContainer.append(humidityElement, precipElement, windspeedElement);
+                    outerDiv.append(dayElement, feelslikeElement, conditionsElement, humTempWindContainer)
+                    
+                    currentDayWeather.appendChild(outerDiv);  
+
+                }
                 
-                weatherContainer.appendChild(outerDiv);  
             });
            
 
@@ -140,6 +189,9 @@ function getLocationFromForm() {
             if (location) {
 
                 locationInput.value = "";
+
+                const titlecontainer = document.querySelector(".title-container");
+                titlecontainer.style.display = "none";
 
                 resolve(location);
             

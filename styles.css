@@ -15,26 +15,96 @@ body {
     box-sizing: border-box;
 }
 
-.title-container {
-    padding-top: 2rem;
+.title {
+    padding-top: 1.5em;
+}
+
+.subTitleSpan {
+    padding-top: 1em;
+    margin-bottom: 2rem;
+    color: blue;
+}
+
+
+
+.title-container .subTitle{
+    width: 80ch;
+    
+}
+
+
+form {
+    width: 70%;
+}
+
+.search-container {
+    margin-bottom: 2rem;
+    margin-top: 1.3rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    
+
+}
+
+.search-input {
+    border: none;
+    padding: 1.5em;
+    width: 50%;
+    position: relative;
+    border-radius: 5px;
+    
+
+}
+
+button {
+    position: absolute;
+    border: none;
+    cursor: pointer;
+    
 }
 
 button svg {
     height: 30px;
     width: 30px;
-    color: white;
+    background-color: white;
+}
+
+.currentDay-weather {
+    width: 60%;
+    height: 50vh;
+    border-radius: 15px;
+    background-color: yellow;
+    display: flex;
+    justify-content: center;
+}
+
+.currentDay-weather .current-day {
+    align-self: flex-end;
+}
+
+.humTempAndWind{
+    margin-top: 4rem;
+    border-radius: 10px;
+    border: 2px solid red;
+    padding: 2em;
 }
 
 .weather-elements-container {
     display: flex;
-    gap: 30px;
+    gap: 20px;
+    width: 90%;
+
 }
 
-.elementsDiv {
-    width: 50%;
-    height: 50%;
+
+.weather-elementsDiv {
+    width: 60%;
+    height: 20vh;
     background-color: pink;
     padding: 20px;
     margin-top: 30px;
+    border-radius: 10px;
 
 }
+
