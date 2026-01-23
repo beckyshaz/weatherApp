@@ -1,5 +1,5 @@
 body {
-    background-image: linear-gradient(to bottom, cyan, steelblue, whitesmoke);
+    background-image: linear-gradient(to bottom, steelblue, white, gray, cyan, whitesmoke);
     background-repeat: no-repeat;
     min-height: 100vh;
     display: flex;
@@ -70,17 +70,36 @@ button svg {
     background-color: white;
 }
 
-.currentDay-weather {
+.currentDay-weather-container{
     width: 60%;
     height: 50vh;
-    border-radius: 15px;
-    background-color: yellow;
-    display: flex;
-    justify-content: center;
+    background: linear-gradient(to bottom, grey, steelblue, white, purple, yellow);
+    display: none;
+   
 }
 
-.currentDay-weather .current-day {
-    align-self: flex-end;
+.current-day-weather-innerDiv {
+   
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: 100%;
+    border-radius: 15px;
+}
+
+
+.current-day-weather-innerDiv .current-day {
+    margin-top: 30px;
+}
+
+.current-day-weather-innerDiv .current-day, .current-day-weather-innerDiv .temp {
+    margin-left: 30px;
+}
+
+.current-day-weather-innerDiv .conditions,  .current-day-weather-innerDiv .feelslike {
+   align-self: flex-end;
+   margin-right: 40px;
+   
 }
 
 .humTempAndWind{
@@ -88,6 +107,7 @@ button svg {
     border-radius: 10px;
     border: 2px solid red;
     padding: 2em;
+    align-self: center;
 }
 
 .weather-elements-container {
@@ -98,10 +118,10 @@ button svg {
 }
 
 
-.weather-elementsDiv {
+.weather-elements-innerDiv {
     width: 60%;
     height: 20vh;
-    background-color: pink;
+    background: linear-gradient(to bottom, grey, steelblue, white, yellow, orange, white);
     padding: 20px;
     margin-top: 30px;
     border-radius: 10px;
