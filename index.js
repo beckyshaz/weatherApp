@@ -93,8 +93,15 @@ async function displayInfoToUser() {
         
         if (weatherData) {
 
+
+            weatherContainer.textContent = "";
+            currentDayWeather.textContent = "";
+
+          
             const loader = document.querySelector(".loader");
             loader.style.display = "none";
+
+           
 
             weatherData.forEach(element => {
 
@@ -125,6 +132,7 @@ async function displayInfoToUser() {
                     createDomElements(element, outerDiv, currentDayWeather);
                 }
             });
+        
         }} catch (error) {
             console.log("an error occured", error);
             throw error;
@@ -220,7 +228,7 @@ function getLocationFromForm() {
             const location =  locationInput.value;
             console.log(location);
 
-            form.removeEventListener("submit", submitHandler);
+           form.removeEventListener("submit", submitHandler);
 
             if (location) {
 
@@ -228,8 +236,11 @@ function getLocationFromForm() {
 
                 const titlecontainer = document.querySelector(".title-container");
                 titlecontainer.style.display = "none";
-
+               
                 resolve(location);
+
+            
+                displayInfoToUser();
             
                
 
