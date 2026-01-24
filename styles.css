@@ -1,3 +1,10 @@
+
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
 body {
     background-image: linear-gradient(to bottom, steelblue, white, gray, cyan, whitesmoke);
     background-repeat: no-repeat;
@@ -9,11 +16,36 @@ body {
 }
 
 
-*{
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+
+.loader {
+    border: 16px solid gray;
+    border-radius: 50%;
+    border-top: 16px solid steelblue;
+    width: 120px;
+    height: 120px;
+    -webkit-animation: spin 2s linear infinite;;
+    animation: spin 2s linear infinite;
+    border-right: 16px solid purple;
+    border-left: 16px solid yellow;
+    position: fixed;
+    display: none;
+
+
+    
 }
+
+@-webkit-keyframes spin {
+    0% { -webkit-transform: rotate(0deg); }
+    100% { -webkit-transform: rotate(360deg); }
+  }
+  
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg);}
+}
+
+
 
 .title {
     padding-top: 1.5em;
@@ -35,6 +67,7 @@ body {
 
 form {
     width: 70%;
+    position: relative;
 }
 
 .search-container {
@@ -72,9 +105,10 @@ button svg {
 
 .currentDay-weather-container{
     width: 60%;
-    height: 50vh;
+    height: 60vh;
     background: linear-gradient(to bottom, grey, steelblue, white, purple, yellow);
     display: none;
+    border-radius: 5px;
    
 }
 
@@ -105,9 +139,10 @@ button svg {
 .humTempAndWind{
     margin-top: 4rem;
     border-radius: 10px;
-    border: 2px solid red;
+   /* border: 2px solid red;*/
     padding: 2em;
     align-self: center;
+    box-shadow: 4px 4px 4px 3px gray;
 }
 
 .weather-elements-container {
@@ -128,3 +163,7 @@ button svg {
 
 }
 
+.temp {
+    font-size: 25px;
+    font-weight: bold;
+}

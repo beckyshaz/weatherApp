@@ -93,6 +93,9 @@ async function displayInfoToUser() {
         
         if (weatherData) {
 
+            const loader = document.querySelector(".loader");
+            loader.style.display = "none";
+
             weatherData.forEach(element => {
 
                 const outerContainer = document.createElement("div");
@@ -209,6 +212,10 @@ function getLocationFromForm() {
 
         function submitHandler(event) {
             event.preventDefault();
+
+            const loader = document.querySelector(".loader");
+
+            loader.style.display = "block";
 
             const location =  locationInput.value;
             console.log(location);
